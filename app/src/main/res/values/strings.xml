@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">reddit</string>
+    <string name="title_reddit">reddit</string>
+    <string name="title_placeholder"><b>This is a placeholder for the titleeeee </b></string>
+    <string name="subreddit_placeholder">R/AskReddit</string>
+    <string name="article_time_placeholder"> * 8hr</string>
+    <string name="no_internet_connection">No internet connection :(</string>
+    <string name="no_articles_found">No articles found :(</string>
+    <string name="menu_refresh">Refresh</string>
+</resources>
