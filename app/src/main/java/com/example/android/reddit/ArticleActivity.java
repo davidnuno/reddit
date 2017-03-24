@@ -1,21 +1,23 @@
 package com.example.android.reddit;
 
+import android.app.LoaderManager;
+import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Context;
 import android.content.Intent;
+import android.content.Loader;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.content.Loader;
-import android.app.LoaderManager;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.app.LoaderManager.LoaderCallbacks;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -47,6 +49,9 @@ public class ArticleActivity extends AppCompatActivity implements LoaderCallback
      * The {@link TextView} that will be visible if no data is found.
      */
     private TextView mEmptyStateTextView;
+
+    private SwipeRefreshLayout swipeContainer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,8 +107,27 @@ public class ArticleActivity extends AppCompatActivity implements LoaderCallback
         } else {
             mProgressBar.setVisibility(View.GONE);
             mEmptyStateTextView.setText(R.string.no_internet_connection);
-            Log.v(LOG_TAG, "ERROR: Not connected!!!!");
         }
+
+        // Lookup the swipe container view
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+        // Setup refresh listener which triggers new data loading
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Your code to refresh the list here.
+                // Make sure you call swipeContainer.setRefreshing(false)
+                // once the network request has completed successfully.
+                LoaderManager loaderManager = getLoaderManager();
+
+                loaderManager.restartLoader(ARTICLE_LOADER_ID, null, ArticleActivity.this);
+
+                //Set Progress Bar to visible while loader refreshes
+                mProgressBar.setVisibility(View.VISIBLE);
+
+                swipeContainer.setRefreshing(false);
+            }
+        });
     }//END OF onCreate METHOD
 
     @Override
@@ -111,6 +135,27 @@ public class ArticleActivity extends AppCompatActivity implements LoaderCallback
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.menu_refresh: {
+
+                LoaderManager loaderManager = getLoaderManager();
+
+                //Restart the loader
+                loaderManager.restartLoader(ARTICLE_LOADER_ID, null, this);
+
+                //Set the Progress Bar to visible
+                mProgressBar.setVisibility(View.VISIBLE);
+
+                return true;
+            }
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
