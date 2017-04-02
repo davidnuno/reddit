@@ -7,7 +7,7 @@ import android.util.Log;
 import java.util.List;
 
 /**
- * Created by David on 1/15/2017.
+ * This class extends AsyncTaskLoader and is used to deal with loading an {@link Article} using JSON.
  */
 
 public class ArticleLoader extends AsyncTaskLoader<List<Article>> {

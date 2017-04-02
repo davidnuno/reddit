@@ -32,24 +32,20 @@ public class ArticleActivity extends AppCompatActivity implements LoaderCallback
      * This really only comes into play if you're using multiple loaders.
      */
     private static final int ARTICLE_LOADER_ID = 1;
-    private static String REDDIT_FRONT_PAGE
-            = "https://www.reddit.com/.json";
 
-    /**
-     * The {@link ArticleAdapter} is used to view the various articles through a ListView.
-     */
+    /** The {@link java.net.URL} from where to obtain the JSON calls. */
+    private static final String REDDIT_FRONT_PAGE = "https://www.reddit.com/.json";
+
+    /** The {@link ArticleAdapter} is used to view the various articles through a ListView. */
     private ArticleAdapter mAdapter;
 
-    /**
-     * The {@link ProgressBar} while app is loading.
-     */
+    /** The {@link ProgressBar} while app is loading. */
     private ProgressBar mProgressBar;
 
-    /**
-     * The {@link TextView} that will be visible if no data is found.
-     */
+    /** The {@link TextView} that will be visible if no data is found. */
     private TextView mEmptyStateTextView;
 
+    /** This is used to deal with the swipe down refresh in the main screen. */
     private SwipeRefreshLayout swipeContainer;
 
 
@@ -123,12 +119,23 @@ public class ArticleActivity extends AppCompatActivity implements LoaderCallback
                 loaderManager.restartLoader(ARTICLE_LOADER_ID, null, ArticleActivity.this);
 
                 //Set Progress Bar to visible while loader refreshes
-                mProgressBar.setVisibility(View.VISIBLE);
+                //mProgressBar.setVisibility(View.VISIBLE);
 
                 swipeContainer.setRefreshing(false);
             }
         });
     }//END OF onCreate METHOD
+
+    @Override
+    public void onResume() {
+        // After a pause OR at startup
+        Log.v(LOG_TAG, "onResume()");
+        LoaderManager loaderManager = getLoaderManager();
+
+        loaderManager.destroyLoader(1);
+
+        super.onResume();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

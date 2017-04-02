@@ -8,14 +8,10 @@ import org.apache.commons.lang3.StringUtils;
 
 public class Article {
 
-    /**
-     * Date article was created in UTC format.
-     */
+    /** Date article was created in UTC format. */
     private long mDate;
 
-    /**
-     * The article URL.
-     */
+    /** The article {@link java.net.URL}. */
     private String mUrl;
 
     /**
@@ -23,24 +19,16 @@ public class Article {
      */
     private String mTitle;
 
-    /**
-     * The URL of article thumbnail.
-     */
+    /** The URL of article thumbnail. */
     private String mThumbnailUrl;
 
-    /**
-     * The article subreddit.
-     */
+    /** The article subreddit. */
     private String mSubreddit;
 
-    /**
-     * The number of comments in article.
-     */
+    /** The number of comments in article. */
     private int mNumOfComments;
 
-    /**
-     * The article domain.
-     */
+    /** The article domain. */
     private String mDomain = StringUtils.EMPTY;
 
     /**
