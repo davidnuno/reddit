@@ -12,25 +12,27 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
+import org.joda.time.Hours;
+import org.joda.time.MutableDateTime;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 /**
- * Created by David on 1/13/2017.
+ * This class is used to set the ListView items.
  */
 
 public class ArticleAdapter extends ArrayAdapter<Article> {
 
     private final static String LOG_TAG = ArticleAdapter.class.getName() + "Steps => ";
 
+    /** This is a divider used to separate the article subreddit and time posted. */
     private final static String TEXT_DIVIDER = "* ";
 
+    /** These are default thumbnails when an articles contains none. */
     private final static String THUMBNAIL_DEFAULT = "default";
-
     private final static String THUMBNAIL_SELF = "self";
 
     /**
@@ -71,13 +73,8 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
 
         TextView time = (TextView) listItemView.findViewById(R.id.article_time);
 
-        // Create a new Date object from the time in milliseconds of the article
-        Date dateObject = new Date(currentArticle.getTimeInMilliseconds());
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("mm/dd/yyyy");
-
-        Log.v(LOG_TAG, "Setting date to --- " + dateFormat.format(dateObject));
-        time.setText(TEXT_DIVIDER + dateFormat.format(dateObject));
+        Log.v(LOG_TAG, "Setting date to --- " + timeAgo(currentArticle.getTimeInMilliseconds()));
+        time.setText(TEXT_DIVIDER + timeAgo(currentArticle.getTimeInMilliseconds()));
 
         //Find the thumbnail ImageView ID
         ImageView thumbnail = (ImageView) listItemView.findViewById(R.id.article_thumbnail);
@@ -123,11 +120,22 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
     /**
      * Method used to format on how long ago the article was posted.
      *
-     * @param datePosted time the article was posted.
+     * @param epoch time the article was posted.
      * @return the time ago the article was posted, of type {@link String}.
      */
-    private String formatDate(Date datePosted) {
+    private String timeAgo(long epoch) {
 
-        return "";
+        MutableDateTime time = new MutableDateTime();
+
+        //Set the epoch time of the article.
+        time.setTime(epoch);
+
+        //The current time
+        DateTime now = new DateTime();
+
+        Hours hoursDifference = Hours.hoursBetween(now, time);
+
+        String text = hoursDifference.getHours() + "h";
+        return text;
     }
 }

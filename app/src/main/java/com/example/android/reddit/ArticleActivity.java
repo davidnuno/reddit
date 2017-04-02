@@ -118,29 +118,18 @@ public class ArticleActivity extends AppCompatActivity implements LoaderCallback
 
                 loaderManager.restartLoader(ARTICLE_LOADER_ID, null, ArticleActivity.this);
 
-                //Set Progress Bar to visible while loader refreshes
-                //mProgressBar.setVisibility(View.VISIBLE);
-
                 swipeContainer.setRefreshing(false);
             }
         });
     }//END OF onCreate METHOD
 
     @Override
-    public void onResume() {
-        // After a pause OR at startup
-        Log.v(LOG_TAG, "onResume()");
-        LoaderManager loaderManager = getLoaderManager();
-
-        loaderManager.destroyLoader(1);
-
-        super.onResume();
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         MenuInflater inflater = getMenuInflater();
+
         inflater.inflate(R.menu.main, menu);
+
         return true;
     }
 
@@ -172,20 +161,21 @@ public class ArticleActivity extends AppCompatActivity implements LoaderCallback
     }
 
     @Override
-    public void onLoadFinished(Loader<List<Article>> loader, List<Article> earthquakes) {
+    public void onLoadFinished(Loader<List<Article>> loader, List<Article> articles) {
 
         // Set empty state text to display "No articles found."
         mEmptyStateTextView.setText(R.string.no_articles_found);
+        //Remove the progress bar
         mProgressBar.setVisibility(View.GONE);
 
         Log.v(LOG_TAG, "onLoadFinished");
-        // Clear the adapter of previous earthquake data
+        // Clear the adapter of previous article data
         mAdapter.clear();
 
         // If there is a valid list of {@link Article}s, then add them to the adapter's
         // data set. This will trigger the ListView to update.
-        if (earthquakes != null && !earthquakes.isEmpty()) {
-            mAdapter.addAll(earthquakes);
+        if (articles != null && !articles.isEmpty()) {
+            mAdapter.addAll(articles);
         }
     }
 

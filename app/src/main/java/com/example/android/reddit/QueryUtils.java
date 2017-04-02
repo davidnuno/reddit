@@ -63,11 +63,11 @@ public final class QueryUtils {
                 //Extract the article url
                 String url = currentArticle.getString("url");
 
-                Log.v(LOG_TAG, "Extracting the url...");
+                Log.v(LOG_TAG, "Extracting the thumbnail url...");
                 //Extract the image url
                 String thumbnailUrl = currentArticle.getString("thumbnail");
 
-                Log.v(LOG_TAG, "Extracting the time of post...");
+                Log.v(LOG_TAG, "Extracting the time of post in epoch...");
                 //Extract the article post time
                 long dateUTC = currentArticle.getLong("created_utc");
 

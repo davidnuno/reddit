@@ -12,14 +12,10 @@ import java.util.List;
 
 public class ArticleLoader extends AsyncTaskLoader<List<Article>> {
 
-    /**
-     * Tag for log messages
-     */
+    /** Tag for log messages */
     private static final String LOG_TAG = ArticleLoader.class.getName() + "Steps => ";
 
-    /**
-     * Query URL
-     */
+    /** Query URL */
     private String mUrl;
 
     public ArticleLoader(Context context, String url) {

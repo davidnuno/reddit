@@ -9,14 +9,12 @@ import org.apache.commons.lang3.StringUtils;
 public class Article {
 
     /** Date article was created in UTC format. */
-    private long mDate;
+    private long mDateInEpoch;
 
     /** The article {@link java.net.URL}. */
     private String mUrl;
 
-    /**
-     * The title of the article.
-     */
+    /** The title of the article. */
     private String mTitle;
 
     /** The URL of article thumbnail. */
@@ -46,7 +44,7 @@ public class Article {
         mTitle = title;
         mThumbnailUrl = thumbnailUrl;
         mSubreddit = subreddit;
-        mDate = date;
+        mDateInEpoch = date;
         mNumOfComments = numOfComments;
 
         if (!domain.contains("reddit"))
@@ -95,7 +93,7 @@ public class Article {
 
     public long getTimeInMilliseconds() {
 
-        return mDate;
+        return mDateInEpoch;
     }
 
     /**

@@ -5,7 +5,7 @@ android {
     buildToolsVersion "25.0.1"
     defaultConfig {
         applicationId "com.example.android.reddit"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -29,5 +29,8 @@ dependencies {
     compile 'org.apache.commons:commons-lang3:3.5'
     compile 'jp.wasabeef:picasso-transformations:2.1.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    // https://mvnrepository.com/artifact/joda-time/joda-time
+    compile group: 'joda-time', name: 'joda-time', version: '2.3'
+
     testCompile 'junit:junit:4.12'
 }

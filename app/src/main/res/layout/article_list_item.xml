@@ -25,6 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingRight="8dp"
+                android:fontFamily="Roboto-Regular.ttf"
                 android:textSize="@dimen/text_small"
                 tools:text="@string/subreddit_placeholder" />
 
@@ -32,6 +33,7 @@
                 android:id="@+id/article_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="Roboto-Regular.ttf"
                 android:paddingRight="8dp"
                 android:textSize="@dimen/text_small"
                 tools:text="@string/article_time_placeholder" />
@@ -41,6 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingRight="8dp"
+                android:fontFamily="Roboto-Regular.ttf"
                 android:textSize="@dimen/text_small"
                 tools:text="* imgur.com" />
 
@@ -52,6 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorText"
+            android:fontFamily="Electromagnetism"
             android:textSize="@dimen/text_medium"
             tools:text="@string/title_placeholder" />
 
